@@ -53,10 +53,10 @@ void inserir_arvore(arvore* a,int valor){
     novo->valor = valor;
 
     while(temp != NULL){
-        if(temp->fesq != NULL && temp->valor > valor){
+        if(temp->fesq != NULL && temp->valor >= valor){
             temp = temp->fesq;
         }
-        else if(temp->fdir != NULL && temp->valor < valor)
+        else if(temp->fdir != NULL && temp->valor <= valor)
             temp = temp->fdir;
 
         else
@@ -182,3 +182,13 @@ arvore* alocar_arvore(){
     return a;
 }
 
+void destruir_arvore(no* raiz){
+
+    if(raiz == NULL)
+        return;
+    destruir_arvore(raiz->fesq);
+
+    destruir_arvore(raiz->fdir);
+
+    free(raiz);
+}
