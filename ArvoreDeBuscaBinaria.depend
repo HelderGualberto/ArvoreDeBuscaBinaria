@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1411916543 source:d:\github\arvoredebuscabinaria\main.c
+	<stdio.h>
+	<stdlib.h>
+	"abb.h"
+
+1411918270 source:d:\github\arvoredebuscabinaria\abb.c
+	<stdio.h>
+	<stdlib.h>
+	"abb.h"
+
+1411910890 d:\github\arvoredebuscabinaria\abb.h
+
