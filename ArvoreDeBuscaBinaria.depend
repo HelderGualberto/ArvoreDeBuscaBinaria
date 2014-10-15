@@ -1,13 +1,30 @@
 # depslib dependency file v1.0
-1411920480 source:d:\github\arvoredebuscabinaria\main.c
+1413392340 source:d:\github\arvoredebuscabinaria\main.c
 	<stdio.h>
 	<stdlib.h>
 	"abb.h"
+	"pilha.h"
 
-1411920448 source:d:\github\arvoredebuscabinaria\abb.c
+1413392621 source:d:\github\arvoredebuscabinaria\abb.c
 	<stdio.h>
 	<stdlib.h>
 	"abb.h"
+	"pilha.h"
 
-1411910890 d:\github\arvoredebuscabinaria\abb.h
+1413391434 d:\github\arvoredebuscabinaria\abb.h
+
+1411851899 source:d:\github\pilha\pilha.c
+	<stdio.h>
+	<stdlib.h>
+	"pilha.h"
+
+1411850947 d:\github\pilha\pilha.h
+
+1413380865 d:\github\arvoredebuscabinaria\pilha.h
+	"abb.h"
+
+1413391947 source:d:\github\arvoredebuscabinaria\pilha.c
+	<stdio.h>
+	<stdlib.h>
+	"pilha.h"
 

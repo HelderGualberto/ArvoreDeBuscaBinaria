@@ -1,6 +1,135 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "abb.h"
+#include "pilha.h"
+void reset(no* raiz){
+    if(raiz == NULL)
+        return;
+    reset(raiz->fesq);
+    raiz->visitado = 0;
+    reset(raiz->fdir);
+}
+
+void pre_ordem(no* raiz){
+    no* temp = raiz;
+    pilha* p = alocar_pilha();
+    inserir_pilha(p,temp);
+
+    while(p->topo != NULL){
+        if(temp->visitado == 0)
+            printf("%d ",temp->valor);
+
+        temp->visitado = 1;
+
+        if(temp->fesq != NULL && temp->fesq->visitado == 0){
+            inserir_pilha(p,temp->fesq);
+            temp = topo(p);
+        }
+        else{
+
+
+            if(temp->fdir != NULL && temp->fdir->visitado == 0){
+                inserir_pilha(p,temp->fdir);
+                temp = topo(p);
+            }
+            else{
+                remover_pilha(p);
+                if(p->topo != NULL)
+                    temp = topo(p);
+            }
+        }
+    }
+    destruir_pilha(p);
+    reset(raiz);
+}
+
+void pos_ordem(no* raiz){
+    no* temp = raiz;
+    pilha* p = alocar_pilha();
+    inserir_pilha(p,temp);
+
+    while(p->topo != NULL){
+
+        if(temp->fesq != NULL && temp->fesq->visitado == 0){
+            inserir_pilha(p,temp->fesq);
+            temp = topo(p);
+        }
+        else{
+
+            temp->visitado = 1;
+
+            if(temp->fdir != NULL && temp->fdir->visitado == 0){
+                inserir_pilha(p,temp->fdir);
+                temp = topo(p);
+            }
+            else{
+                printf("%d ",temp->valor);
+                remover_pilha(p);
+                if(p->topo != NULL)
+                    temp = topo(p);
+            }
+        }
+    }
+    destruir_pilha(p);
+    reset(raiz);
+}
+
+void in_ordem(no* raiz){
+    no* temp = raiz;
+    pilha* p = alocar_pilha();
+    inserir_pilha(p,temp);
+
+    while(p->topo != NULL){
+
+        if(temp->fesq != NULL && temp->fesq->visitado == 0){
+            inserir_pilha(p,temp->fesq);
+            temp = topo(p);
+        }
+        else{
+            if(temp->visitado == 0)
+                printf("%d ",temp->valor);
+
+            temp->visitado = 1;
+
+            if(temp->fdir != NULL && temp->fdir->visitado == 0){
+                inserir_pilha(p,temp->fdir);
+                temp = topo(p);
+            }
+            else{
+                remover_pilha(p);
+                if(p->topo != NULL)
+                    temp = topo(p);
+            }
+        }
+    }
+    destruir_pilha(p);
+    reset(raiz);
+}
+
+void pre_ordem_recursivo(no* raiz){
+    if(raiz == NULL)
+        return;
+
+    printf("%d ",raiz->valor);
+    pre_ordem_recursivo(raiz->fesq);
+    pre_ordem_recursivo(raiz->fdir);
+}
+
+void pos_ordem_recursivo(no* raiz){
+    if(raiz == NULL)
+        return;
+    pos_ordem_recursivo(raiz->fesq);
+    pos_ordem_recursivo(raiz->fdir);
+    printf("%d ",raiz->valor);
+}
+
+void in_ordem_recursivo(no* raiz){
+    if(raiz == NULL)
+        return;
+    in_ordem_recursivo(raiz->fesq);
+    printf("%d ",raiz->valor);
+    in_ordem_recursivo(raiz->fdir);
+}
 
 no* minimo(no* raiz){
     if(raiz->fesq == NULL)
@@ -39,11 +168,11 @@ void imprimir(no* raiz){
     imprimir(raiz->fdir);
 
 }
+
 void imprimir_arvore(no* raiz){
     imprimir(raiz);
     printf("\n");
 }
-
 
 void inserir_arvore(arvore* a,int valor){
     no* temp = a->raiz;
@@ -51,6 +180,7 @@ void inserir_arvore(arvore* a,int valor){
     novo->fesq = NULL;
     novo->fdir = NULL;
     novo->valor = valor;
+    novo->visitado = 0;
 
     while(temp != NULL){
         if(temp->fesq != NULL && temp->valor >= valor){
